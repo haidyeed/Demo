@@ -27,4 +27,9 @@ Route::post('login', [UserController::class, 'login']);
 Route::middleware('auth:api')->group(function () {
     Route::get('user-details', [UserController::class, 'userDetails']);
     Route::post('logout', [UserController::class, 'logout']);
+
+    Route::post('addPartner', [UserController::class, 'addPartner']);
+    Route::get('showMyPartner', [UserController::class, 'showMyPartner']);
+
+
 });

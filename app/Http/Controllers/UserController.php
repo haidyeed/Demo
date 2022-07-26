@@ -109,5 +109,54 @@ class UserController extends Controller
             'message' => 'User logout successfully.'
         ], 200);
     }
+
+
+    public function addPartner(Request $request)
+    {
+        $partner = $request->partner;
+
+       if (User::where('id', $partner )->exists() && $partner!=auth()->user()->id ) {
+
+        $user = User::where('id',auth()->user()->id)->first();
+            $user->partner=$partner;
+            $user->save();
+
+            return response()->json([
+                'success' => true,
+                'message' => 'partner added successfully'
+            ], 200);       
+         }
+
+            else{
+                return response()->json([
+                    'success' => false,
+                    'message' => 'partner not found'
+                ], 400);    
+            }
+
+    }
+
+
+    public function showMyPartner()
+    {
+        $user = User::where('id',auth()->user()->id)->first();
+        if($user->partner>0){
+            $partner = User::where('id',$user->partner)->first();
+            return response()->json([
+                'success' => true,
+                'data'=>$partner,
+                'message' => 'partner found'
+            ], 200); 
+        }
+            else{
+                return response()->json([
+                    'success' => false,
+                    'message' => 'no partner found'
+                ], 400);    
+            }
+
+    }
+
+
  
 }
