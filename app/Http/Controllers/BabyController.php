@@ -12,7 +12,6 @@ class BabyController extends Controller
     public function addBaby(Request $request)
     {
         $baby = $request->only(['name', 'age']);
-        //  if(Baby::where('name', $baby['name'] )->where('age',$baby['age'])->where('user_id',auth()->user()->id)->exists()){
             if(AddedBefore::addedBefore($baby)==0){
             return response()->json([
                 'success' => false,
@@ -20,7 +19,6 @@ class BabyController extends Controller
             ]);
          }
 
-        //  if(Baby::where('name', $baby['name'] )->where('age',$baby['age'])->where('user_id',auth()->user()->partner)->exists()){
             if(AddedBefore::addedBefore($baby)==1){
             return response()->json([
                 'success' => false,

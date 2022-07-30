@@ -30,12 +30,4 @@ class CreateUserRequest extends FormRequest
         ];
     }
 
-    // public function messages(){
-    //     return [
-    //         'name' => 'required|string|min:4',
-    //         'email' => 'required|email',
-    //         'password' => 'required|min:8',
-    //     ];
-
-    // }
 }

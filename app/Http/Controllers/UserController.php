@@ -92,6 +92,7 @@ class UserController extends Controller
         ], 200);
     }
 
+
     public function logout()
     {
         $access_token = auth()->user()->token();
@@ -130,6 +131,7 @@ class UserController extends Controller
             }
 
     }
+
 
     public function showMyPartner()
     {
