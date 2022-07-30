@@ -26,7 +26,7 @@ Route::post('login', [UserController::class, 'login']);
 
 // put all api protected routes here
 Route::middleware('auth:api')->group(function () {
-    //User 
+    //User
     Route::get('user-details', [UserController::class, 'userDetails']);
     Route::post('logout', [UserController::class, 'logout']);
 
@@ -36,9 +36,10 @@ Route::middleware('auth:api')->group(function () {
 
     //Baby
     Route::post('addBaby', [BabyController::class, 'addBaby']);
-    Route::get('getBaby', [BabyController::class, 'getBaby']);
-    Route::get('ListBabies', [BabyController::class, 'listBabies']);
-    Route::delete('deleteBaby', [BabyController::class, 'deleteBaby']);
+    Route::post('editBaby/{id}', [BabyController::class, 'editBaby']);
+    Route::get('showMyBaby/{id}', [BabyController::class, 'showMyBaby']);
+    Route::get('showMyBabies', [BabyController::class, 'showMyBabies']);
+    Route::get('deleteBaby/{id}', [BabyController::class, 'deleteBaby']);
 
 
 

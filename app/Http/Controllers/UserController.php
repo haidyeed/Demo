@@ -31,13 +31,13 @@ class UserController extends Controller
                 'errors' => $validator->errors()
             ]);
         }
- 
+
         $user = User::create([
             'name' => $input['name'],
             'email' => $input['email'],
             'password' => Hash::make($input['password'])
         ]);
-         
+
         return response()->json([
             'success' => true,
             'message' => 'User registered succesfully, Use Login method to receive token.'
@@ -56,7 +56,7 @@ class UserController extends Controller
         ];
 
         $validator = Validator::make($input, $validate_data);
-        
+
         if ($validator->fails()) {
             return response()->json([
                 'success' => false,
@@ -68,7 +68,7 @@ class UserController extends Controller
         // authentication attempt
         if (auth()->attempt($input)) {
             $token = auth()->user()->createToken('passport_token')->accessToken;
-            
+
             return response()->json([
                 'success' => true,
                 'message' => 'User login succesfully, Use token to authenticate.',
@@ -124,14 +124,14 @@ class UserController extends Controller
             return response()->json([
                 'success' => true,
                 'message' => 'partner added successfully'
-            ], 200);       
+            ], 200);
          }
 
             else{
                 return response()->json([
                     'success' => false,
                     'message' => 'partner not found'
-                ], 400);    
+                ], 400);
             }
 
     }
@@ -146,17 +146,17 @@ class UserController extends Controller
                 'success' => true,
                 'data'=>$partner,
                 'message' => 'partner found'
-            ], 200); 
+            ], 200);
         }
             else{
                 return response()->json([
                     'success' => false,
                     'message' => 'no partner found'
-                ], 400);    
+                ], 400);
             }
 
     }
 
 
- 
+
 }
