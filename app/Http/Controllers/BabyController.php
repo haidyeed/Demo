@@ -5,27 +5,28 @@ namespace App\Http\Controllers;
 use Validator;
 use App\Models\Baby;
 use Illuminate\Http\Request;
+use App\Services\AddedBefore;
 
 class BabyController extends Controller
 {
     public function addBaby(Request $request)
     {
         $baby = $request->only(['name', 'age']);
-
-         if(Baby::where('name', $baby['name'] )->where('age',$baby['age'])->where('user_id',auth()->user()->id)->exists()){
+        //  if(Baby::where('name', $baby['name'] )->where('age',$baby['age'])->where('user_id',auth()->user()->id)->exists()){
+            if(AddedBefore::addedBefore($baby)==0){
             return response()->json([
                 'success' => false,
                 'message' => 'this baby has been added before',
             ]);
          }
 
-         if(Baby::where('name', $baby['name'] )->where('age',$baby['age'])->where('user_id',auth()->user()->partner)->exists()){
+        //  if(Baby::where('name', $baby['name'] )->where('age',$baby['age'])->where('user_id',auth()->user()->partner)->exists()){
+            if(AddedBefore::addedBefore($baby)==1){
             return response()->json([
                 'success' => false,
                 'message' => 'this baby has been added by your partner',
             ]);
          }
-
 
         $validate_data = [
             'name' => 'required|string|min:4',
@@ -53,8 +54,6 @@ class BabyController extends Controller
             'message' => 'a new baby has been added successfully'
         ], 200);
     }
-
-
 
 
     public function editBaby(Request $request, $id)

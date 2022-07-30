@@ -96,13 +96,8 @@ class UserController extends Controller
     {
         $access_token = auth()->user()->token();
 
-        // logout from only current device
         $tokenRepository = app(TokenRepository::class);
         $tokenRepository->revokeAccessToken($access_token->id);
-
-        // use this method to logout from all devices
-        // $refreshTokenRepository = app(RefreshTokenRepository::class);
-        // $refreshTokenRepository->revokeRefreshTokensByAccessTokenId($$access_token->id);
 
         return response()->json([
             'success' => true,
@@ -136,7 +131,6 @@ class UserController extends Controller
 
     }
 
-
     public function showMyPartner()
     {
         $user = User::where('id',auth()->user()->id)->first();
@@ -156,7 +150,5 @@ class UserController extends Controller
             }
 
     }
-
-
 
 }
